@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="todo.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300&family=Tajawal:wght@700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <title>To Do List</title>
+</head>
+<body>
+    <div class="container">
+        <div class="table"  >
+
+            <div class="head">
+                <h1>مهامي</h1>
+                <button id="add"> + </button>
+            </div> 
+
+
+            <div id="tasks" style="margin: 15px;">
+
+        
+             <!-- <div class="task"  >
+                <div class="icons">
+                    <button style="color: white; background-color: rgb(94, 94, 250); padding-top: 2px;"> <span class="material-symbols-outlined">     edit   </span> </button>
+                    <button style="color: white; background-color: rgb(23, 196, 21); padding-top: 2px;" > <span class="material-symbols-outlined">   done </span> </button>
+
+                    <button style="color: white; background-color: rgb(127, 7, 7); padding-top: 2px;"> <span class="material-symbols-outlined"> delete </span> </button>
+                    
+                </div>
+
+                <div class="content">
+                    <span class="s1">قراءة كتاب</span>
+                    <br>
+                    <div style="display: flex; gap: 8px;">
+                        <span> 22/3/2032</span>
+                        <span class="material-symbols-outlined">   calendar_month   </span>
+                    </div>
+                 
+
+                </div>
+                
+
+            </div>
+            
+            <div class="task" >
+                <div class="icons">
+                    <button style="color: white; background-color: rgb(94, 94, 250); padding-top: 2px;"> <span class="material-symbols-outlined">     edit   </span> </button>
+                    <button style="color: white; background-color: rgb(23, 196, 21); padding-top: 2px;" > <span class="material-symbols-outlined">   done </span> </button>
+
+                    <button style="color: white; background-color: rgb(127, 7, 7); padding-top: 2px;"> <span class="material-symbols-outlined"> delete </span> </button>
+                    
+                </div>
+
+                <div class="content">
+                    <span>قراءة كتاب</span>
+                    <br>
+                    <div style="display: flex; gap: 8px;">
+                        <span> 22/3/2032</span>
+                        <span class="material-symbols-outlined">   calendar_month   </span>
+                    </div>
+                 
+
+                </div>
+                
+
+            </div>
+            
+            <div class="task" >
+                <div class="icons">
+                    <button style="color: white; background-color: rgb(94, 94, 250); padding-top: 2px;"> <span class="material-symbols-outlined">     edit   </span> </button>
+                    <button style="color: white; background-color: rgb(23, 196, 21); padding-top: 2px;" > <span class="material-symbols-outlined">   done </span> </button>
+
+                    <button style="color: white; background-color: rgb(127, 7, 7); padding-top: 2px;"> <span class="material-symbols-outlined"> delete </span> </button>
+                    
+                </div>
+
+                <div class="content">
+                    <span>قراءة كتاب</span>
+                    <br>
+                    <div style="display: flex; gap: 8px;">
+                        <span> 22/3/2032</span>
+                        <span class="material-symbols-outlined">   calendar_month   </span>
+                    </div>
+                 
+
+                </div>
+                
+
+            </div>  -->
+        </div>
+            
+
+
+
+
+        </div>
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+</body>
+<script>
+    let tasks = [
+        {
+            "title": "قراءة",
+            "date": "10/10/2021",
+            "isDone":false
+        },
+        {
+            "title": "1قراءة",
+            "date": "10/10/2021",
+            "isDone":false
+        },
+        {
+            "title": "2قراءة",
+            "date": "10/10/2021",
+            "isDone":false
+        },
+        {
+            "title": "3قراءة",
+            "date": "10/10/2021",
+            "isDone":false
+        }
+
+    ]    
+    let x1 = JSON.parse(localStorage.getItem("tasks"))
+    if (x1 == null)
+    {
+        tasks=[]
+    }    else
+            tasks =  JSON.parse(localStorage.getItem("tasks")) 
+
+            fillElements()
+            setTasksStorage()
+
+            function fillElements(){
+    let index = 0
+
+    document.getElementById("tasks").innerHTML=""
+    for (elemnt of tasks){
+    document.getElementById("tasks").innerHTML+= `
+    <div class="task ${elemnt.isDone ? 'done': ''}" >
+            <div class="icons">
+                
+                <button style="color: white; background-color: rgb(94, 94, 250); padding-top: 2px;" onclick="updateTask(${index})"  > <span class="material-symbols-outlined">     edit   </span> </button>
+
+                ${elemnt.isDone ? `
+                    <button style="color: white;     background-color: rgb(118, 0, 6); padding-top: 2px;" onclick="toggleTask(${index})"> <span class="material-symbols-outlined" >   close </span> </button>
+
+
+                    
+                    `    :  `
+                        <button style="color: white; background-color: rgb(23, 196, 21); padding-top: 2px;" onclick="toggleTask(${index})"> <span class="material-symbols-outlined" >   done </span> </button>
+`}
+
+                <button style="color: white; background-color: rgb(127, 7, 7); padding-top: 2px;" onclick="deleteTask(${index})"> <span class="material-symbols-outlined"> delete </span> </button>
+                
+            </div>
+
+            <div class="content">
+                <span class="s1">${elemnt.title}</span>
+                <br>
+                <div style="display: flex; gap: 8px;">
+                    <span> ${elemnt.date}</span>
+                    <span class="material-symbols-outlined">   calendar_month   </span>
+                </div>
+             
+
+            </div>
+            
+
+        </div>
+    `
+index++
+}
+    
+
+  }
+       
+        document.getElementById("add").addEventListener("click",function(){
+        let title = prompt("الرجاء ادخال الاسم :")
+
+                      if (title != null ){
+
+                      let now = new Date()
+                      let date = now.getDate() + "/" + (now.getMonth()+1) + "/" + now.getFullYear()
+   
+                      let obj = {
+                          "title":title,
+                       "date": date,
+                          "isDone":false
+                      }
+                      tasks.push(obj)
+                      setTasksStorage()
+                      fillElements()
+                  }
+                  
+
+    })
+
+
+            function deleteTask(index) {
+
+                let check = confirm("هل أنت متاكد من حذف :" + tasks[index].title )
+                if (check){
+                    tasks.splice(index,1)
+                    setTasksStorage()
+                    fillElements()
+
+                }
+                    
+        
+
+    }
+
+    function updateTask(index) {
+        let newTitle = prompt("الرجاء تحديد عنوان المهمة الجديدة :",tasks[index].title)
+        tasks[index].title=newTitle
+        setTasksStorage()
+        fillElements()
+    
+
+
+}
+
+ function toggleTask (index){
+    tasks[index].isDone = !tasks[index].isDone
+    setTasksStorage()
+    fillElements()
+
+
+
+ }
+  function setTasksStorage (){
+    let TaskString = JSON.stringify(tasks)
+    localStorage.setItem("tasks",TaskString)
+  }
+  
+
+
+
+    
+
+
+
+
+
+</script>
+</html>
